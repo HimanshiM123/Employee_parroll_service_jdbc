@@ -4,12 +4,19 @@ import java.sql.*;
 
 public class MySqlDB {
     public static void main(String[] args) {
+        double salary = 600000.00;
+        int id = 4;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_servicedb", "root", "Himanshi@12345");
             Statement statement = con.createStatement();
             System.out.println("Connection done!");
-            statement.execute("update employee_payroll set salary = 3000000.00 WHERE id = 4;");
+            String query = "update employee_payroll set salary = ? WHERE id = ?;";
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setDouble(1, salary);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+            
             String query1 = "select * from employee_payroll;";
             ResultSet rs = statement.executeQuery(query1);
             while (rs.next()) {
