@@ -9,8 +9,9 @@ public class MySqlDB {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_servicedb", "root", "Himanshi@12345");
             Statement statement = con.createStatement();
             System.out.println("Connection done!");
-            String query = "select * from employee_payroll;";
-            ResultSet rs = statement.executeQuery(query);
+            statement.execute("update employee_payroll set salary = 3000000.00 WHERE id = 4;");
+            String query1 = "select * from employee_payroll;";
+            ResultSet rs = statement.executeQuery(query1);
             while (rs.next()) {
                 System.out.println(rs.getInt("id") + " | " + rs.getString("name") + " | " + rs.getString("gender") + " | " + rs.getString("phone_number") + " | "
                         + rs.getString("address") + " | " + rs.getString("department") + " | " + rs.getDouble("salary") + " | " + rs.getDouble("deduction") + " | "
