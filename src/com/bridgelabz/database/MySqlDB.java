@@ -9,9 +9,8 @@ public class MySqlDB {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_servicedb", "root", "Himanshi@12345");
             Statement statement = con.createStatement();
             System.out.println("Connection done!");
-            PreparedStatement preparedStatement = con.prepareStatement("select * from employee_payroll where name =?;");
-            preparedStatement.setString(1, "Terissa");
-            ResultSet rs = preparedStatement.executeQuery();
+            String query = "select * from employee_payroll where start between '2020-05-04' and now()";
+            ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
                 System.out.println(rs.getInt("id") + " | " + rs.getString("name") + " | " + rs.getString("gender") + " | " + rs.getString("phone_number") + " | "
                         + rs.getString("address") + " | " + rs.getString("department") + " | " + rs.getDouble("salary") + " | " + rs.getDouble("deduction") + " | "
