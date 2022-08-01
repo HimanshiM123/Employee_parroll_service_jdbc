@@ -9,12 +9,11 @@ public class MySqlDB {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_servicedb", "root", "Himanshi@12345");
             Statement statement = con.createStatement();
             System.out.println("Connection done!");
-            String query = "select * from employee_payroll where start between '2020-05-04' and now()";
+            String query = "SELECT SUM(salary), AVG(salary), MAX(salary), MIN(salary) FROM employee_payroll WHERE gender = 'F' GROUP BY gender;";
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
-                System.out.println(rs.getInt("id") + " | " + rs.getString("name") + " | " + rs.getString("gender") + " | " + rs.getString("phone_number") + " | "
-                        + rs.getString("address") + " | " + rs.getString("department") + " | " + rs.getDouble("salary") + " | " + rs.getDouble("deduction") + " | "
-                        + rs.getDouble("taxablePay") + " | " + rs.getDouble("netPay") + " | " + rs.getDouble("incomeTax") + " | " + rs.getDate("start"));
+                System.out.println("Sum of all basic salary: " + rs.getDouble("SUM(salary)") + "\n" + "Average of all basic salary: " + rs.getDouble("AVG(salary)") + "\n" + "MIN of all basic salary: " + rs.getDouble("MIN(salary)") + "\n" + "MAX of all basic salary: " +
+                        rs.getDouble("MAX(salary)"));
             }
             statement.close();
             con.close();
